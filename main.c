@@ -1,10 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
-#include <stdio.h>
-#include <stdlib.h>
-
 /* Cada nó armazena três informações:
    nesse caso um número (num),
    ponteiro para subárvore à direita (sad)
@@ -88,17 +84,39 @@ int isInTree(Tree* t, int num) {
   return t->num==num || isInTree(t->sae, num) || isInTree(t->sad, num);
 }
 
+int contarNos(Tree *t){
+   if(t == NULL)
+        return 0;
+   else
+        return 1 + contarNos(t->sae) + contarNos(t->sad);
+        
+}
+
+int contarFolhas(Tree *t){
+	if(t == NULL){
+		return 0;
+		
+	}
+	if(t->sae == NULL && t->sad == NULL){
+		return 1;
+		
+	}
+	return 1 + contarNos(t->sae) + contarNos(t->sad);
+	printf("1");
+}
+
 int main()
 {
   Tree* t = createTree(); /* cria uma árvore */
   int x,i;
   
-  for(i = 0; i<=10; i++){
+  for(i = 0; i<=5; i++){
   	system("cls");
 	printf("informe o valor:");
     scanf("%d",&x);
 	insertTree(&t,x);
   }
+  
   
   
   //insertTree(&t, 12); /* insere o elemento 12 na árvore */
@@ -107,6 +125,7 @@ int main()
   //insertTree(&t, 13); /* insere o elemento 13 na árvore */
    
   showTree(t); /* Mostra os elementos da árvore em pré-ordem */
+  contarNos(t);
   
   if(treeIsEmpty(t)) /* Verifica se a árvore está vazia */
   {
